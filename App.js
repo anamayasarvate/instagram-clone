@@ -5,9 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text } from 'react-native';
 import firebase from 'firebase';
-import landingScreen from './components/auth/Landing';
-import registerScreen from './components/auth/Register';
+import LandingScreen from './components/auth/Landing';
+import RegisterScreen from './components/auth/Register';
 import firebaseConfig from './firebaseConfig/firebaseConfig';
+import MainScreen from './components/Main';
+// Redux
+import store from './store';
+import { Provider } from 'react-redux';
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
@@ -44,12 +48,12 @@ export default function App() {
         <stack.Navigator initialRouteName='Landing'>
           <stack.Screen
             name='Landing'
-            component={landingScreen}
+            component={LandingScreen}
             options={{ headerShown: false }}
           ></stack.Screen>
           <stack.Screen
             name='Register'
-            component={registerScreen}
+            component={RegisterScreen}
             options={{ headerShown: true }}
           ></stack.Screen>
         </stack.Navigator>
@@ -57,8 +61,8 @@ export default function App() {
     );
   }
   return (
-    <View style={{ flex: 1, justifyContent: 'center' }}>
-      <Text>User is logged in</Text>
-    </View>
+    <Provider store={store}>
+      <MainScreen />
+    </Provider>
   );
 }
