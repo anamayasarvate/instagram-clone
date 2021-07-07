@@ -9,6 +9,8 @@ import LandingScreen from './components/auth/Landing';
 import RegisterScreen from './components/auth/Register';
 import firebaseConfig from './firebaseConfig/firebaseConfig';
 import MainScreen from './components/Main';
+import AddScreen from './components/main/Add';
+import SaveScreen from './components/main/Save';
 // Redux
 import store from './store';
 import { Provider } from 'react-redux';
@@ -62,7 +64,25 @@ export default function App() {
   }
   return (
     <Provider store={store}>
-      <MainScreen />
+      <NavigationContainer>
+        <stack.Navigator initialRouteName='Landing'>
+          <stack.Screen
+            name='Main'
+            component={MainScreen}
+            options={{ headerShown: false }}
+          ></stack.Screen>
+          <stack.Screen
+            name='Add'
+            component={AddScreen}
+            options={{ headerShown: true }}
+          ></stack.Screen>
+          <stack.Screen
+            name='Save'
+            component={SaveScreen}
+            options={{ headerShown: true }}
+          ></stack.Screen>
+        </stack.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 }
